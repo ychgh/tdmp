@@ -70,7 +70,13 @@ class RAGService:
         settings = get_settings()
 
         # Use ephemeral client for testing or if explicitly requested
-        is_testing = use_ephemeral or os.environ.get("TESTING", "").lower() == "true"
+        # Check for boolean True or string "true" (case-insensitive)
+        testing_env = os.environ.get("TESTING", "")
+        is_testing = (
+            use_ephemeral
+            or testing_env == "1"
+            or testing_env.lower() == "true"
+        )
         if is_testing:
             self._client = chromadb.EphemeralClient()
         else:

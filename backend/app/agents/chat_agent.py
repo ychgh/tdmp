@@ -94,8 +94,17 @@ class ChatAgent:
             for i, doc in enumerate(state["context"])
         )
 
-        # Generate response (in production, this would use LLM)
-        # For now, we provide a simple rule-based response
+        # NOTE: This is a mock implementation for demonstration purposes.
+        # In production, integrate with an LLM (e.g., OpenAI GPT-4) by:
+        # 1. Creating a prompt with the user message and context
+        # 2. Calling the LLM API (langchain_openai.ChatOpenAI)
+        # 3. Parsing and returning the LLM response
+        #
+        # Example production implementation:
+        #   from langchain_openai import ChatOpenAI
+        #   llm = ChatOpenAI(model=settings.openai_model)
+        #   prompt = f"Context:\n{context_str}\n\nQuestion: {state['message']}"
+        #   response = llm.invoke(prompt)
         if context_str.strip():
             response = (
                 f"Based on the available knowledge base, here's what I found:\n\n"
