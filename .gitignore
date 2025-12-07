@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+/lib/
 lib64/
 parts/
 sdist/
@@ -25,6 +25,15 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# Node.js
+node_modules/
+.next/
+out/
+.npm
+
+# Chroma data
+chroma_data/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
