@@ -153,6 +153,21 @@ class TestExternalAPIEndpoints:
         assert data["status"] == "success"
         assert data["imported_count"] == 2
 
+    def test_bulk_import_documents_limit(self, client):
+        """Test bulk document import rejects more than 100 documents."""
+        # Create 101 documents
+        documents = [
+            {"content": f"Document {i}", "metadata": {"type": "test"}}
+            for i in range(101)
+        ]
+        response = client.post(
+            "/api/v1/external/documents/bulk",
+            json=documents,
+        )
+        assert response.status_code == 400
+        data = response.json()
+        assert "Cannot import more than 100 documents" in data["detail"]
+
     def test_webhook_handler(self, client):
         """Test webhook handler."""
         response = client.post(

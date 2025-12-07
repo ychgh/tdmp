@@ -2,9 +2,9 @@
 
 import logging
 import uuid
-from datetime import datetime, timezone
-from typing import Any
 from collections import deque
+from datetime import datetime, timezone
+from typing import Any, Callable
 
 logger = logging.getLogger(__name__)
 
@@ -20,10 +20,10 @@ class EventPipeline:
         """Initialize the event pipeline."""
         self._queue: deque[dict[str, Any]] = deque(maxlen=1000)
         self._processed: dict[str, dict[str, Any]] = {}
-        self._handlers: dict[str, list[callable]] = {}
+        self._handlers: dict[str, list[Callable]] = {}
         logger.info("Event pipeline initialized")
 
-    def register_handler(self, event_type: str, handler: callable) -> None:
+    def register_handler(self, event_type: str, handler: Callable) -> None:
         """Register a handler for an event type.
 
         Args:

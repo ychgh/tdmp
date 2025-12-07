@@ -1,7 +1,6 @@
 """External API endpoints for 3rd party integration."""
 
 import logging
-import uuid
 from datetime import datetime, timezone
 from typing import Any
 
@@ -133,6 +132,14 @@ async def bulk_import_documents(
     Returns:
         Import results with document IDs.
     """
+    # Validate document count to prevent memory exhaustion
+    MAX_BULK_DOCUMENTS = 100
+    if len(documents) > MAX_BULK_DOCUMENTS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Cannot import more than {MAX_BULK_DOCUMENTS} documents at once"
+        )
+
     logger.info("Bulk importing %d documents", len(documents))
 
     try:

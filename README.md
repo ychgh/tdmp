@@ -190,6 +190,17 @@ tdmp/
 └── README.md
 ```
 
+## Security Considerations
+
+**Note**: The external API endpoints (`/api/v1/external/*`) are currently designed for development and demonstration purposes. For production deployment, consider implementing:
+
+1. **API Key Authentication**: Add authentication headers for all external endpoints
+2. **Rate Limiting**: Implement request rate limiting to prevent abuse
+3. **IP Whitelisting**: Restrict access to trusted sources for webhook and data ingestion endpoints
+4. **Input Validation**: The bulk import endpoint limits to 100 documents per request; adjust as needed
+5. **HTTPS**: Always use HTTPS in production environments
+6. **CORS Configuration**: Update `CORS_ORIGINS` to only allow trusted domains
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
